@@ -1,0 +1,47 @@
+#show-color {
+  width: 270px;
+  min-width: 200px;
+  height: 90px;
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgba(0, 0, 0);
+  color: #fff;
+  font-size: 14px;
+  border: 2px solid rgb(58, 58, 58);
+  border-radius: 7px;
+  box-shadow: 1px 2px 8px 2px rgb(0 0 0 / 51%);
+  z-index: 9999;
+  resize: both;
+  overflow: auto;
+}
+
+.di-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-15 {
+  padding: 15px;
+}
+
+.he-50 {
+  height: 50%;
+}
+
+.wi-100 {
+  width: 100%;
+}
+
+.wi-50 {
+  width: 75%;
+  height: 100%;
+}
+
+.wi-25 {
+  width: 25%;
+  height: 100%;
+}

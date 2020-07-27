@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "detector",
+  "description": "detect color and font of element with one click..",
+  "version": "1.0",
+  "icons": {
+    "256": "icons/icon256.png",
+    "128": "icons/icon128.png",
+    "64": "icons/icon64.png",
+    "32": "icons/icon32.png"
+  },
+  "browser_action": {
+    "default_title": "detector",
+    "default_popup": "popup.html",
+    "browser_style": true
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "background": {
+    "scripts": [
+      "./scripts/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "./scripts/utils.js",
+        "./scripts/content.js"
+      ]
+    }
+  ]
+}
