@@ -5,7 +5,7 @@ function popup () {
   chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
     let activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, { "message": "start-detect" });
-    btnDetect.innerHTML = '<img src="./icons/icon32.png" alt="detector" /> ACTIVATED';
+    btnDetect.innerHTML = 'ACTIVATED';
   });
 }
 
