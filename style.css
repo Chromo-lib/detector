@@ -13,18 +13,14 @@ body {
 
 button,
 label {
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
 .btn-primary {
-  background: #1a73e8;
+  background: #4444f3;
   color: #fff;
-}
-
-.btn-primary:hover {
-  background: #1467d4;
 }
 
 button {
@@ -49,6 +45,13 @@ button {
   padding: 0 24px;
 }
 
+.btn-primary img {
+  border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    margin-right: 10px;
+}
+
 .mb-10 {
   margin-bottom: 10px;
 }
@@ -60,8 +63,6 @@ button {
 .w-100 {
   width: 100% !important;
 }
-
-.bg-dark {background-color: #1d1d1d;}
 
 .d-flex {
   display: flex;
