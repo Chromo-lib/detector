@@ -6,18 +6,20 @@ let mouseY = 0;
 
 function receiver (request, sender, response) {
   if (request.message === 'start-detect') {
-    window.addEventListener('click', showDialog);
+    window.addEventListener('mousemove', showDialog);
   }
 }
 
 function showDialog (event) {
+
+  event.stopPropagation();
 
   mouseX = event.clientX;
   mouseY = event.clientY;
 
   let elementMouseIsOver = document.elementFromPoint(mouseX, mouseY);
 
-  if (check(elementMouseIsOver)) {    
+  if (check(elementMouseIsOver)) {
 
     let color = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("color");
     let bgColor = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("background-color");
@@ -34,8 +36,8 @@ function showDialog (event) {
       mouseX = docWidth - 255;
     }
 
-    if (mouseY + 270 > docHeight) {
-      mouseY = docHeight - 270;
+    if (mouseY + 165 > docHeight) {
+      mouseY = docHeight - 150;
     }
 
     createDialog(
@@ -105,7 +107,7 @@ function createDialog (fontFamily, fontSize, fontWeight, fontStyle, color, bgCol
 }
 
 function check (elementMouseIsOver) {
-  return elementMouseIsOver.id !== dialogElementId
+  return (elementMouseIsOver && elementMouseIsOver.id !== dialogElementId)
     && elementMouseIsOver.parentElement.id !== dialogElementId
     && elementMouseIsOver.id !== dialogItemElementId
     && elementMouseIsOver.parentElement.id !== dialogItemElementId
