@@ -25,6 +25,8 @@ button {
   padding: 7px;
   width:100%;
   font-size: 12px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .mb-10 {margin-bottom: 10px;}

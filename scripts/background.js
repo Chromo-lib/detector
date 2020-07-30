@@ -1,4 +1,6 @@
-function receiver (request, sender, response) {
-}
+// let browser = browser.runtime ? browser : chrome;
 
-chrome.runtime.onMessage.addListener(receiver);
+// function receiver (request, sender, response) {
+// }
+
+// browser.runtime.onMessage.addListener(receiver);

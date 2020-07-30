@@ -1,3 +1,6 @@
+let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+let currBrowser = isChrome ? chrome : browser;
+
 const dialogElementId = "show-color";
 const dialogItemElementId = "show-color-item";
 
@@ -113,4 +116,4 @@ function check (elementMouseIsOver) {
     && elementMouseIsOver.parentElement.id !== dialogItemElementId
 }
 
-chrome.runtime.onMessage.addListener(receiver);
+currBrowser.runtime.onMessage.addListener(receiver);

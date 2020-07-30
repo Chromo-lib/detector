@@ -1,10 +1,12 @@
 const btnDetect = document.getElementById('btn-detect');
+let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+let currBrowser = isChrome ? chrome : browser;
 
-function popup () {
+function popup () {  
 
-  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+  currBrowser.tabs.query({ currentWindow: true, active: true }, function (tabs) {
     let activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, { "message": "start-detect" });
+    currBrowser.tabs.sendMessage(activeTab.id, { "message": "start-detect" });
     btnDetect.innerHTML = 'ACTIVATED';
   });
 }

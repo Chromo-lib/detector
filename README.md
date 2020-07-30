@@ -10,9 +10,7 @@
 
 ### Tested On
 - [x] Chrome
-- [ ] FireFox
-- [ ] Opera
-- [ ] Edge
+- [x] FireFox
 
 ### Capture
 <div align="center">
