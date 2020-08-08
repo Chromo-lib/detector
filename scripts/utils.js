@@ -18,4 +18,11 @@ class Utils {
     let elem = document.getElementById(id);
     return elem ? elem.parentNode.removeChild(elem) : null;
   }
+
+  static createBox(txt, desc) {
+    return `<div class="w-100 d-flex mb-10">
+    <span class="mr-10 txt-muted">${txt}</span>
+    <span>${desc}</span>
+  </div>`;
+  }
 }

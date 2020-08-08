@@ -4,18 +4,22 @@
 
 body {
   margin: 0;
+  width: 200px;
   font-family: Consolas;
 }
 
 .container {
-  width: 170px;
+  width: 100%;
+  height: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #35353ce6, #4444f3); 
+  background: linear-gradient(to bottom right, #35353ce6, #000000); 
 }
+
+#element-stats { text-transform: capitalize; }
 
 h1 {
   text-transform: uppercase;
@@ -29,4 +33,20 @@ button {
   vertical-align: middle;
 }
 
+.w-100 {width: 100%;}
 .mb-10 {margin-bottom: 10px;}
+.mt-10 {margin-top: 10px;}
+.mr-10 {margin-right: 10px !important;}
+.txt-white {color: #fff}
+.txt-muted {color: #bebebe}
+
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.d-flex-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

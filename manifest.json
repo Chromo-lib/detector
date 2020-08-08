@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "detector",
   "description": "detect color and font of element with one click..",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "icons": {
     "256": "icons/icon256.png",
     "128": "icons/icon128.png",

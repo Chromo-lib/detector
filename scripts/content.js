@@ -1,5 +1,5 @@
 let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-let currBrowser = isChrome ? chrome : browser;
+chrome = isChrome ? chrome : browser;
 
 const dialogElementId = "show-color";
 const dialogItemElementId = "show-color-item";
@@ -24,39 +24,29 @@ function showDialog (event) {
 
   if (check(elementMouseIsOver)) {
 
-    let color = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("color");
-    let bgColor = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("background-color");
-    let fontFamily = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("font-family");
-
-    let fontSize = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("font-size");
-    let fontWeight = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("font-weight");
-    let fontStyle = window.getComputedStyle(elementMouseIsOver, null).getPropertyValue("font-style");
-
     let docWidth = document.body.clientWidth;
     let docHeight = document.body.clientHeight;
 
-    if (mouseX + 270 > docWidth) {
-      mouseX = docWidth - 255;
-    }
+    if (mouseX + 270 > docWidth) { mouseX = docWidth - 255; }
+    if (mouseY + 165 > docHeight) { mouseY = docHeight - 150; }
 
-    if (mouseY + 165 > docHeight) {
-      mouseY = docHeight - 150;
-    }
+    let elemntStyles = getStyles(elementMouseIsOver);
 
-    createDialog(
-      fontFamily,
-      fontSize,
-      fontWeight,
-      fontStyle,
-      Utils.rgbToHex(color.trim()),
-      Utils.rgbToHex(bgColor.trim()),
-      mouseX - 13,
-      mouseY + 13
-    );
+    createDialog(elemntStyles, { posX: mouseX - 13, posY: mouseY + 13 });
+    if (chrome.app && typeof chrome.app.isInstalled !== 'undefined') {
+      chrome.runtime.sendMessage({ elemntStyles });
+    }
   }
 }
 
-function createDialog (fontFamily, fontSize, fontWeight, fontStyle, color, bgColor, posX, posY) {
+function createDialog (styles, mousePos) {
+
+  let { family, size, weight, style, background, color } = styles;
+  let { posX, posY } = mousePos;
+
+  color = Utils.rgbToHex(color.trim());
+  background = Utils.rgbToHex(background.trim());
+
   Utils.removeDomElement(dialogElementId);
   const div = document.createElement('div');
 
@@ -69,7 +59,7 @@ function createDialog (fontFamily, fontSize, fontWeight, fontStyle, color, bgCol
 
     <div class="wi-100 di-flex-column mb-15">
       <small class="wi-100">Family</small>
-      <span class="txt-w">${fontFamily}</span>
+      <span class="txt-w">${family}</span>
     </div>
 
     <div class="wi-50 di-flex mb-15">      
@@ -84,25 +74,25 @@ function createDialog (fontFamily, fontSize, fontWeight, fontStyle, color, bgCol
     <div class="wi-50 di-flex mb-15">      
       <div class="wi-75 di-flex-column par-10">
         <small class="wi-100">Background</small>
-        <span>${bgColor}</span>       
+        <span>${color}</span>       
       </div>
 
-      <span class="m-box" style="background:${bgColor}"></span>
+      <span class="m-box" style="background:${color}"></span>
     </div>
 
     <div class="wi-25 di-flex-column">
       <small class="wi-100">Size</small>
-      <span class="txt-w">${fontSize}</span>
+      <span class="txt-w">${size}</span>
     </div>
 
     <div class="wi-25 di-flex-column">
       <small class="wi-100">Weight</small>
-      <span class="txt-w">${fontWeight}</span>
+      <span class="txt-w">${weight}</span>
     </div>
 
     <div class="wi-25 di-flex-column">
       <small class="wi-100">Style</small>
-      <span class="txt-w">${fontStyle}</span>
+      <span class="txt-w">${style}</span>
     </div>    
   </div>`;
 
@@ -116,4 +106,20 @@ function check (elementMouseIsOver) {
     && elementMouseIsOver.parentElement.id !== dialogItemElementId
 }
 
-currBrowser.runtime.onMessage.addListener(receiver);
+function getStyles (element) {
+  const getStyle = (name) => {
+    return window.getComputedStyle(element, null).getPropertyValue(name);
+  }
+
+  let color = getStyle("color");
+  let background = getStyle("background-color");
+  let family = getStyle("font-family");
+
+  let size = getStyle("font-size");
+  let weight = getStyle("font-weight");
+  let style = getStyle("font-style");
+
+  return { color, background, family, size, weight, style };
+}
+
+chrome.runtime.onMessage.addListener(receiver);
