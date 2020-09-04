@@ -11,6 +11,7 @@ function receiver (request) {
     preventOpenLink(document.getElementsByTagName('a'));
     preventOpenLink(document.getElementsByTagName('button'));
     preventOpenLink(document.getElementsByTagName('form'));
+    preventOpenLink(document.getElementsByTagName('div'));
     createboxContentEL();
     window.addEventListener('click', showDialog, false);
   }
@@ -131,11 +132,13 @@ function getStyles (element) {
 }
 
 function preventOpenLink (elements) {
-  Array.from(document).forEach.call(elements, (el) => {
+  Array.prototype.forEach.call(elements, (el) => {
     el.href = "javascript:void(0)";
     el.click = "javascript:void(0)";
-    el.submit = "javascript:void(0)";
+    el.removeAttribute('href');
+    el.removeAttribute('onclick');
     el.addEventListener('click', (e) => { e.preventDefault(); return false; });
+    el.addEventListener('submit', (e) => { e.preventDefault(); return false; });
   });
 }
 
