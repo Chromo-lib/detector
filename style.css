@@ -19,8 +19,6 @@ body {
   background: linear-gradient(to bottom right, #35353ce6, #000000); 
 }
 
-#element-stats { text-transform: capitalize; }
-
 h1 {
   text-transform: uppercase;
 }
@@ -35,18 +33,3 @@ button {
 
 .w-100 {width: 100%;}
 .mb-10 {margin-bottom: 10px;}
-.mt-10 {margin-top: 10px;}
-.mr-10 {margin-right: 10px !important;}
-.txt-white {color: #fff}
-.txt-muted {color: #bebebe}
-
-.d-flex {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.d-flex-col {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-}
