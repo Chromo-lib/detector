@@ -2,11 +2,7 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  width: 200px;
-  font-family: Consolas;
-}
+body { margin: 0; width: 170px;}
 
 .container {
   width: 100%;
@@ -17,10 +13,6 @@ body {
   justify-content: center;
   align-items: center;
   background: linear-gradient(to bottom right, #35353ce6, #000000); 
-}
-
-h1 {
-  text-transform: uppercase;
 }
 
 button {

@@ -1,1 +1,5 @@
-Translate.js
+node_modules/
+.gitHub
+.cache
+dist/
+build/

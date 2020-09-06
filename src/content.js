@@ -1,38 +1,41 @@
+import Utils from './Utils';
+
 let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 chrome = isChrome ? chrome : browser;
 
+let boxContainerEL = null;
 let isBoxReadyToMove = false;
 let isMouseOnBox = false;
 let boxContentEL = null;
 let offset = [0, 0];
 
 function receiver (request) {
-  if (request.message === 'start-detect') {
-    preventOpenLink(document.getElementsByTagName('a'));
-    preventOpenLink(document.getElementsByTagName('button'));
-    preventOpenLink(document.getElementsByTagName('form'));
-    preventOpenLink(document.getElementsByTagName('div'));
-    createboxContentEL();
+  if (!boxContainerEL && request.message === 'start-detect') {
+    createboxContentEL();    
     window.addEventListener('click', showDialog, false);
   }
 }
 
 function showDialog (event) {
-  let elementMouseIsOver = document.elementFromPoint(event.clientX, event.clientY);
+  let elementMouseIsOver = document.elementFromPoint(event.clientX, event.clientY);  
   if (boxContentEL && !isMouseOnBox) {
-    boxContentEL.innerHTML = getStyles(elementMouseIsOver);
+    Utils.preventOpenLink(event);
+    getStyles(boxContentEL, elementMouseIsOver);
   }
 }
 
 function createboxContentEL () {
-  let boxContainerEL = document.createElement('div');
+  // the box styles shown when user click on element
+  boxContainerEL = document.createElement('div');
   boxContainerEL.id = 'box-styles';
 
+  // box header creation
   let header = document.createElement('header');
   let title = document.createElement('h3');
   let button = document.createElement('div');
   button.title = 'Move box';
   title.textContent = 'Style detector';
+  
   button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="white" viewBox="0 0 24 24" stroke="white">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 </svg>`;
@@ -40,11 +43,19 @@ function createboxContentEL () {
   header.appendChild(title);
   header.appendChild(button);
   boxContainerEL.appendChild(header);
+  // end header creation
+
+  const footer = document.createElement('footer')
+  const link = document.createElement('a');
+  link.href = 'https://github.com/Chromo-lib/detector';
+  link.textContent = 'Made with coffee by Haikel Fazzani';
+  footer.appendChild(link);
 
   boxContentEL = document.createElement('div');
   boxContentEL.id = 'box-styles-contents';
 
   boxContainerEL.appendChild(boxContentEL);
+  boxContainerEL.appendChild(footer);
   document.body.appendChild(boxContainerEL);
 
   button.addEventListener('mousedown', function (e) {
@@ -74,20 +85,25 @@ function createboxContentEL () {
   });
 }
 
-function getStyles (element) {
+
+function getStyles (boxContentEL, element) {
   const getStyle = (name) => {
     return window.getComputedStyle(element, null).getPropertyValue(name);
   }
 
-  return `
-  <ul>
+  boxContentEL.innerHTML = `<ul>
     <li>
       <span class="txt-muted">family</span><br>
       <span>${getStyle("font-family")}</span>
     </li>
   </ul>
 
-  <ul class="colu-2">
+  <ul>
+    <li>
+      <span class="txt-muted">node</span><br>
+      <span>${element.nodeName}</span>
+    </li>
+
     <li>
       <span class="txt-muted">width</span><br>
       <span>${getStyle("width")}</span>
@@ -128,18 +144,14 @@ function getStyles (element) {
       <span class="txt-muted">style</span><br>
       <span>${getStyle("font-style")}</span>
     </li>
+  </ul>
+  
+  <ul>
+    <li>
+      <span class="txt-muted">box shadow</span><br>
+      <span>${getStyle("box-shadow")}</span>
+    </li>
   </ul>`;
-}
-
-function preventOpenLink (elements) {
-  Array.prototype.forEach.call(elements, (el) => {
-    el.href = "javascript:void(0)";
-    el.click = "javascript:void(0)";
-    el.removeAttribute('href');
-    el.removeAttribute('onclick');
-    el.addEventListener('click', (e) => { e.preventDefault(); return false; });
-    el.addEventListener('submit', (e) => { e.preventDefault(); return false; });
-  });
 }
 
 chrome.runtime.onMessage.addListener(receiver);

@@ -1,0 +1,94 @@
+@font-face { font-family: SyneRegular; src: url(Syne-Regular.ttf);}
+
+#box-styles>* { box-sizing: border-box !important; }
+
+#box-styles {
+  width: 250px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #222225ee;
+  color: #fff !important;
+  font-family: 'SyneRegular' !important;
+  border: 1px solid #404040;
+  box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 40px 1px !important;
+  z-index: 9999;
+}
+
+#box-styles-contents {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#box-styles header, #box-styles footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid #404040;
+  padding: 5px 10px;
+  color: #ffffff !important;
+  background: #1d1e21 !important;
+  box-shadow: 0 5px 8px 1px rgb(0 0 0 / 32%) !important;
+}
+
+#box-styles footer {text-align: center; }
+
+#box-styles header div { display: flex; cursor: move;}
+
+#box-styles input[type="color"] {
+  width: 100% !important;
+  height: 35px !important;
+  margin-top: 5px;
+}
+
+#box-styles ul {
+  width: 100% !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px !important;
+}
+
+#box-styles ul:last-child {
+  border: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#box-styles .txt-muted {
+  color: #b9b9b9 !important;
+  text-transform: capitalize;
+}
+
+#box-styles .colu-2>* {
+  width: 48% !important;
+}
+
+#box-styles h3 {
+  margin: 0 !important;
+  font-size: 16px !important;
+}
+
+#box-styles header h3,#box-styles ul li span, #box-styles a {font-family: 'SyneRegular' !important; }
+
+#box-styles footer a {
+  width: 100%;
+  font-size: 10px;
+  color: #b9b9b9 !important;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: color .25s;
+  letter-spacing: .4px;
+}
+
+#box-styles header h3,#box-styles ul li span, #box-styles footer a:hover { 
+  color: #ffffff !important;
+}
+
+#box-styles ul li span{font-size: 14px !important; letter-spacing: 0.4px;}
+
+#box-styles, #box-styles header, #box-styles input[type="color"] {  border-radius: 4px; }
