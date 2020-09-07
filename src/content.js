@@ -31,17 +31,16 @@ function createboxContentEL () {
 
   // box header creation
   let header = document.createElement('header');
+  let btnClose = document.createElement('div');
   let title = document.createElement('h3');
-  let button = document.createElement('div');
-  button.title = 'Move box';
-  title.textContent = 'Style detector';
-  
-  button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" fill="white" viewBox="0 0 24 24" stroke="white">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+
+  btnClose.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" viewBox="0 0 24 24" stroke="#ddd">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 </svg>`;
+  title.textContent = 'Style detector';
 
   header.appendChild(title);
-  header.appendChild(button);
+  header.appendChild(btnClose);
   boxContainerEL.appendChild(header);
   // end header creation
 
@@ -58,7 +57,7 @@ function createboxContentEL () {
   boxContainerEL.appendChild(footer);
   document.body.appendChild(boxContainerEL);
 
-  button.addEventListener('mousedown', function (e) {
+  header.addEventListener('mousedown', function (e) {
     isMouseOnBox = true;
     isBoxReadyToMove = true;
     offset = [
@@ -81,10 +80,14 @@ function createboxContentEL () {
   }, true);
 
   document.addEventListener('click', (e) => {
-    isMouseOnBox = boxContainerEL.contains(e.target);
-  });
-}
+    if(boxContainerEL) isMouseOnBox = boxContainerEL.contains(e.target);
+  }, false);
 
+  btnClose.addEventListener('click', () =>{
+    Utils.RemoveElement('box-styles');
+    boxContainerEL = null;
+  }, false);
+}
 
 function getStyles (boxContentEL, element) {
   const getStyle = (name) => {

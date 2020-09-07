@@ -1,6 +1,6 @@
 {
   "name": "detector",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "detect styles (color, font, etc..) of any DOM element with one click..",
   "main": "rollup.config.js",
   "scripts": {

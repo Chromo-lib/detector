@@ -3,7 +3,7 @@
 #box-styles>* { box-sizing: border-box !important; }
 
 #box-styles {
-  width: 250px;
+  width: 260px;
   position: fixed;
   top: 20px;
   right: 20px;
@@ -21,6 +21,8 @@
   padding: 10px;
 }
 
+#box-styles header{cursor: move;}
+
 #box-styles header, #box-styles footer {
   display: flex;
   justify-content: space-between;
@@ -35,7 +37,7 @@
 
 #box-styles footer {text-align: center; }
 
-#box-styles header div { display: flex; cursor: move;}
+#box-styles header div { display: flex; cursor: pointer;}
 
 #box-styles input[type="color"] {
   width: 100% !important;
@@ -85,9 +87,13 @@
   letter-spacing: .4px;
 }
 
-#box-styles header h3,#box-styles ul li span, #box-styles footer a:hover { 
+#box-styles header h3,
+#box-styles ul li span, 
+#box-styles footer a:hover { 
   color: #ffffff !important;
 }
+
+#box-styles header svg path:hover {stroke: #fff !important;}
 
 #box-styles ul li span{font-size: 14px !important; letter-spacing: 0.4px;}
 

@@ -13,9 +13,7 @@
 - [x] FireFox
 
 ### Capture
-<div align="center">
-  <img src="https://i.ibb.co/6DXtb9W/New-Bitmap-Image.png">
-</div>
+![](capture2.png)
 
 ### Todo 
 - [ ] Change style of the current selected element

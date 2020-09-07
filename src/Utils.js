@@ -30,4 +30,11 @@ export default class Utils {
     event.target.addEventListener('click', (e) => { e.preventDefault(); return false; });
     event.target.addEventListener('submit', (e) => { e.preventDefault(); return false; });
   }
+
+  static RemoveElement (elemID) {
+    let elem = document.getElementById(elemID);
+    if (elem.parentNode) {
+      elem.parentNode.removeChild(elem);
+    }
+  }
 }
