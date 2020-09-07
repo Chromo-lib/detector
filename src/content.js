@@ -85,6 +85,7 @@ function createboxContentEL () {
 
   btnClose.addEventListener('click', () =>{
     Utils.RemoveElement('box-styles');
+    Utils.preventOpenLink(null);
     boxContainerEL = null;
   }, false);
 }

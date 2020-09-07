@@ -16,19 +16,20 @@ export default class Utils {
   }
 
   static preventOpenLink (event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
 
-    event.preventDefault();
-    event.stopPropagation();
+      event.target.onsubmit = "javascript:void(0)";
+      event.target.href = "javascript:void(0)";
+      event.target.click = "javascript:void(0)";
 
-    event.target.onsubmit = "javascript:void(0)";
-    event.target.href = "javascript:void(0)";
-    event.target.click = "javascript:void(0)";
+      event.target.removeAttribute('href');
+      event.target.removeAttribute('onclick');
 
-    event.target.removeAttribute('href');
-    event.target.removeAttribute('onclick');
-
-    event.target.addEventListener('click', (e) => { e.preventDefault(); return false; });
-    event.target.addEventListener('submit', (e) => { e.preventDefault(); return false; });
+      event.target.addEventListener('click', (e) => { e.preventDefault(); return false; });
+      event.target.addEventListener('submit', (e) => { e.preventDefault(); return false; });
+    }
   }
 
   static RemoveElement (elemID) {
