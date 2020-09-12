@@ -15,23 +15,6 @@ export default class Utils {
     return "#" + arr.slice(0, 3).map(toHex).join('');
   }
 
-  static preventOpenLink (event) {
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      event.target.onsubmit = "javascript:void(0)";
-      event.target.href = "javascript:void(0)";
-      event.target.click = "javascript:void(0)";
-
-      event.target.removeAttribute('href');
-      event.target.removeAttribute('onclick');
-
-      event.target.addEventListener('click', (e) => { e.preventDefault(); return false; });
-      event.target.addEventListener('submit', (e) => { e.preventDefault(); return false; });
-    }
-  }
-
   static RemoveElement (elemID) {
     let elem = document.getElementById(elemID);
     if (elem.parentNode) {

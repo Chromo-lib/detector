@@ -1,6 +1,11 @@
-@font-face { font-family: SyneRegular; src: url(Syne-Regular.ttf);}
+@font-face {
+  font-family: SyneRegular;
+  src: url(Syne-Regular.ttf);
+}
 
-#box-styles>* { box-sizing: border-box !important; }
+#box-styles>* {
+  box-sizing: border-box !important;
+}
 
 #box-styles {
   width: 260px;
@@ -13,6 +18,7 @@
   border: 1px solid #404040;
   box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 40px 1px !important;
   z-index: 9999;
+  pointer-events: initial !important;
 }
 
 #box-styles-contents {
@@ -21,9 +27,12 @@
   padding: 10px;
 }
 
-#box-styles header{cursor: move;}
+#box-styles header {
+  cursor: move;
+}
 
-#box-styles header, #box-styles footer {
+#box-styles header,
+#box-styles footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,9 +44,14 @@
   box-shadow: 0 5px 8px 1px rgb(0 0 0 / 32%) !important;
 }
 
-#box-styles footer {text-align: center; }
+#box-styles footer {
+  text-align: center;
+}
 
-#box-styles header div { display: flex; cursor: pointer;}
+#box-styles header div {
+  display: flex;
+  cursor: pointer;
+}
 
 #box-styles input[type="color"] {
   width: 100% !important;
@@ -71,11 +85,23 @@
 }
 
 #box-styles h3 {
+  display: inline-flex !important;
+  align-items: center !important;
   margin: 0 !important;
   font-size: 16px !important;
 }
 
-#box-styles header h3,#box-styles ul li span, #box-styles a {font-family: 'SyneRegular' !important; }
+#box-styles img {
+  width: 22px;
+  height: 22px;
+  margin-right: 5px;
+}
+
+#box-styles header h3,
+#box-styles ul li span,
+#box-styles a {
+  font-family: 'SyneRegular' !important;
+}
 
 #box-styles footer a {
   width: 100%;
@@ -88,13 +114,89 @@
 }
 
 #box-styles header h3,
-#box-styles ul li span, 
-#box-styles footer a:hover { 
+#box-styles ul li span,
+#box-styles footer a:hover {
   color: #ffffff !important;
 }
 
-#box-styles header svg path:hover {stroke: #fff !important;}
+#box-styles header svg path:hover {
+  stroke: #fff !important;
+}
 
-#box-styles ul li span{font-size: 14px !important; letter-spacing: 0.4px;}
+#box-styles ul li span {
+  font-size: 14px !important;
+  letter-spacing: 0.4px;
+}
 
-#box-styles, #box-styles header, #box-styles input[type="color"] {  border-radius: 4px; }
+#box-styles,
+#box-styles header,
+#box-styles input[type="color"] {
+  border-radius: 4px;
+}
+
+.sc-container {
+  display: flex;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  width: fit-content;
+  height: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.sc-box {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+}
+
+.sc-input {
+  -webkit-appearance: none;
+  position: absolute;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  outline: none;
+}
+
+.sc-labels {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  height: 24px;
+  width: 40px;
+}
+
+.sc-switch {
+  box-sizing: border-box;
+  height: 8px;
+  margin-top: 8px;
+  width: 100%;
+  display: block;
+  background: rgb(196, 199, 201);
+  border-radius: 3px;
+}
+
+.sc-checked {
+  transform: translate(20px, calc(-50% - 4px));
+  background-color: rgb(251, 84, 43);
+}
+
+.sc-unchecked {
+  transform: translate(-1px, calc(-50% - 4px));
+  background-color: rgb(235, 236, 240);
+}
+
+.sc-checked,
+.sc-unchecked {
+  box-sizing: border-box;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: block;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 3px;
+  border-radius: 50%;
+  transition: all 0.4s ease 0s;
+}
