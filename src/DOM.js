@@ -17,6 +17,10 @@ export default class DOM {
     return this.element;
   }
 
+  set(value = null) {
+    this.element = value;
+  }
+
   createElement (nodeType = 'div', attributes = {}) {
     this.element = document.createElement(nodeType);
     Object.assign(this.element, attributes);

@@ -21,4 +21,15 @@ export default class Utils {
       elem.parentNode.removeChild(elem);
     }
   }
+
+  static compareTwoDomElements (firstEl, secondEl) {
+    firstEl = JSON.stringify(firstEl, ['tagName', 'textContent', 'innerHTML', 'id', 'className']);
+    secondEl = JSON.stringify(secondEl, ['tagName', 'textContent', 'innerHTML', 'id', 'className']);
+    return firstEl !== secondEl;
+  }
+
+  static removeElement (id) {
+    var elem = document.getElementById(id);
+    return elem.parentNode.removeChild(elem);
+  }
 }

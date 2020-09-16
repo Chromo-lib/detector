@@ -8,6 +8,8 @@ let boxContainer = null;
 let isMouseOnBox = false;
 let boxContentEL = null;
 
+let lastElementMouseIsOver = null;
+
 function receiver (request) {
   if (!boxContainer && request.message === 'start-detect') {
     let Box = BoxStyles();
@@ -35,8 +37,20 @@ function receiver (request) {
 
     window.addEventListener('click', (event) => {
       let elementMouseIsOver = document.elementFromPoint(event.clientX, event.clientY);
+
       if (boxContentEL && !isMouseOnBox) {
         Box.setStyles(elementMouseIsOver);
+
+        if (!lastElementMouseIsOver) {
+          lastElementMouseIsOver = elementMouseIsOver;
+        }
+
+        if (Utils.compareTwoDomElements(lastElementMouseIsOver, elementMouseIsOver)) {
+          lastElementMouseIsOver.classList.remove('element-border');
+          lastElementMouseIsOver = elementMouseIsOver;
+          elementMouseIsOver.dataset.foo = elementMouseIsOver.nodeName;
+          elementMouseIsOver.classList.add('element-border');
+        }
       }
     }, false);
   }
@@ -164,8 +178,11 @@ function BoxStyles () {
         ];
       }, true);
 
-      btnClose.addEventListener('click', () => {
-        window.location.reload();
+      btnClose.addEventListener('click', () => {        
+        if(elementMouseIsOver) elementMouseIsOver.classList.remove('element-border');
+        Utils.removeElement('box-styles');
+        boxContainer = null;
+        boxContentEL = null;        
       }, false);
 
       return header;
