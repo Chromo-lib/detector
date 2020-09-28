@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "detector",
-  "description": "detect styles (color, font, etc..) of any DOM element with one click..",
+  "description": "detect and change styles (color, font, etc..) of any DOM element with one click..",
   "version": "1.0.8",
   "icons": {
     "256": "icons/icon256.png",

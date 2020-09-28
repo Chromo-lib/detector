@@ -1,8 +1,6 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-body { margin: 0; width: 170px;}
+body { margin: 0; width: 170px; }
 
 .container {
   width: 100%;
