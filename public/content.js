@@ -1,1 +1,336 @@
-!function(e){"function"==typeof define&&define.amd?define(e):e()}((function(){"use strict";class e{constructor(){this.element=null,this.children=null}get(){return this.element}set(e=null){this.element=e}createElement(e="div",t={}){return this.element=document.createElement(e),Object.assign(this.element,t),this}createChilds(e=[]){return this.children=e.map(e=>class{static createElement(e="div",t={}){let n=document.createElement(e);return Object.assign(n,t),n}}.createElement(e.nodeType,e.attributes)),this}appendChilds(e=[]){return(this.children||e).forEach(e=>{this.element.appendChild(e)}),this}appendTo(e=null){return this.element&&e&&e.appendChild(this.element),this}}class t{static rgbToHex(e){let t=[];return e.replace(/[\d+\.]+/g,e=>{t.push(parseFloat(e))}),"#"+t.slice(0,3).map(e=>{let t=e.toString(16);return 1==t.length?"0"+t:t}).join("")}static RemoveElement(e){let t=document.getElementById(e);t.parentNode&&t.parentNode.removeChild(t)}static compareTwoDomElements(e,t){return(e=JSON.stringify(e,["tagName","textContent","innerHTML","id","className"]))!==(t=JSON.stringify(t,["tagName","textContent","innerHTML","id","className"]))}static removeElement(e){var t=document.getElementById(e);return t.parentNode.removeChild(t)}}let n=/Chrome/.test(navigator.userAgent)&&/Google Inc/.test(navigator.vendor);chrome=n?chrome:browser;let a=null,l=!1,o=null,s=null,r=null;chrome.runtime.onMessage.addListener((function(n){if(!a&&"start-detect"===n.message){let n=function(){let n=!1,s=[0,0];return{createBox(){a=(new e).createElement("div",{id:"box-styles"}).appendTo(document.body),o=(new e).createElement("div",{id:"box-styles-contents"}).get(),a.appendChilds([this.createHeader(),o,this.createFooter()]),document.addEventListener("mouseup",(function(){l=!1,n=!1}),!0),document.addEventListener("mousemove",(function(e){e.preventDefault(),n&&(a.get().style.left=e.clientX+s[0]+"px",a.get().style.top=e.clientY+s[1]+"px")}),!0),document.addEventListener("click",e=>{l=a&&a.get().contains(e.target)},!1),o.addEventListener("input",(function(e){let t="color"===e.target.name||"background"===e.target.name,n=t?e.target.name:e.target.dataset.node;r.style[n]=t?e.target.value:e.target.textContent}),!1)},setStyles(e){const n=t=>window.getComputedStyle(e,null).getPropertyValue(t);o.innerHTML=`<ul>\n        <li>\n          <span class="txt-muted">family</span><br>\n          <span contenteditable="true" data-node="fontFamily">${n("font-family")}</span>\n        </li>\n      </ul>\n    \n      <ul>\n        <li>\n          <span class="txt-muted">node</span><br>\n          <span class="truncate">${e.nodeName}</span>\n        </li>\n    \n        <li>\n          <span class="txt-muted">width</span><br>\n          <span contenteditable="true" data-node="width">${n("width")}</span>\n        </li>\n    \n        <li>\n          <span class="txt-muted">height</span><br>\n          <span contenteditable="true" data-node="height">${n("height")}</span>\n        </li>\n      </ul>\n    \n      <ul class="colu-2">\n        <li>\n          <span class="txt-muted">color</span><br>\n          <span contenteditable="true" data-node="color">${t.rgbToHex(n("color"))}</span><br>\n          <input type="color" name="color" value="${t.rgbToHex(n("color"))}">\n        </li>\n    \n        <li>\n          <span class="txt-muted">background</span><br>\n          <span contenteditable="true" data-node="backgroundColor">${t.rgbToHex(n("background-color"))}</span><br>\n          <input type="color" name="background" value="${t.rgbToHex(n("background-color"))}">\n        </li>\n      </ul>\n    \n      <ul>\n        <li>\n          <span class="txt-muted">size</span><br>\n          <span contenteditable="true" data-node="fontSize">${n("font-size")}</span>\n        </li>\n    \n        <li>\n          <span class="txt-muted">weight</span><br>\n          <span contenteditable="true" data-node="fontWeight">${n("font-weight")}</span>\n        </li>\n    \n        <li>\n          <span class="txt-muted">style</span><br>\n          <span contenteditable="true" data-node="fontStyle">${n("font-style")}</span>\n        </li>\n      </ul>\n      \n      <ul>\n        <li>\n          <span class="txt-muted">box shadow</span><br>\n          <span contenteditable="true" data-node="boxShadow">${n("box-shadow")}</span>\n        </li>\n      </ul>`},createHeader(){let e=document.createElement("header"),r=document.createElement("div"),i=document.createElement("h3");return r.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" viewBox="0 0 24 24" stroke="#ddd">\n      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>\n    </svg>',i.innerHTML='<img src="https://i.ibb.co/VHZjhDT/icon32.png" alt="" /> Style Detector',e.appendChild(i),e.appendChild(r),e.addEventListener("mousedown",(function(e){l=!0,n=!0,s=[a.get().offsetLeft-e.clientX,a.get().offsetTop-e.clientY]}),!0),r.addEventListener("click",()=>{t.removeElement("box-styles"),a=null,o=null},!1),e},createFooter:()=>(new e).createElement("footer",{}).createChilds([{nodeType:"a",attributes:{href:"https://github.com/Chromo-lib/detector",textContent:"Made with coffee by Haikel Fazzani",id:"box-link"}}]).appendChilds().get()}}();n.createBox(),["button","a","form"].forEach(e=>{document.querySelectorAll(e).forEach(e=>{e.onsubmit=e=>(e.preventDefault(),!1),e.onclick=e=>(e.preventDefault(),!1),"box-link"!==e.id&&(e.href="javascript:void(0)",e.click="javascript:void(0)")})}),window.addEventListener("click",e=>{s=document.elementFromPoint(e.clientX,e.clientY),s.onclick=e=>(e.preventDefault(),!1),o&&!l&&(n.setStyles(s),r||(r=s),t.compareTwoDomElements(r,s)&&(r.classList.remove("element-border"),r=s,s.dataset.foo=s.nodeName,s.classList.add("element-border")))},!1)}}))}));
+(function (factory) {
+  typeof define === 'function' && define.amd ? define(factory) :
+  factory();
+}((function () { 'use strict';
+
+  class ChildNode {
+    static createElement (nodeType = 'div', attributes = {}) {
+      let newElement = document.createElement(nodeType);
+      Object.assign(newElement, attributes);
+      return newElement;
+    }
+  }
+
+  class DOM {
+
+    constructor () {
+      this.element = null;
+      this.children = null;
+    }
+
+    get () {
+      return this.element;
+    }
+
+    set(value = null) {
+      this.element = value;
+    }
+
+    createElement (nodeType = 'div', attributes = {}) {
+      this.element = document.createElement(nodeType);
+      Object.assign(this.element, attributes);
+      return this;
+    }
+
+    /**
+     * child object {nodeType : 'div', attributes : {}};
+     * @param {Array<Object>} children 
+     */
+    createChilds (children = []) {
+      this.children = children.map(child => {
+        let newEl = ChildNode.createElement(child.nodeType, child.attributes);
+        return newEl;
+      });
+      return this;
+    }
+
+    appendChilds (children = []) {
+      (this.children || children).forEach(child => {
+        this.element.appendChild(child);
+      });
+      return this;
+    }
+
+    appendTo (parentNode = null) {
+      if (this.element && parentNode) { parentNode.appendChild(this.element); }
+      return this;
+    }
+  }
+
+  class Utils {
+
+    static rgbToHex (color) {
+
+      const toHex = (int) => {
+        let hex = int.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+      };
+
+      let arr = [];
+      color.replace(/[\d+\.]+/g, (v) => {
+        arr.push(parseFloat(v));
+      });
+
+      return "#" + arr.slice(0, 3).map(toHex).join('');
+    }
+
+    static RemoveElement (elemID) {
+      let elem = document.getElementById(elemID);
+      if (elem.parentNode) {
+        elem.parentNode.removeChild(elem);
+      }
+    }
+
+    static compareTwoDomElements (firstEl, secondEl) {
+      firstEl = JSON.stringify(firstEl, ['tagName', 'textContent', 'innerHTML', 'id', 'className']);
+      secondEl = JSON.stringify(secondEl, ['tagName', 'textContent', 'innerHTML', 'id', 'className']);
+      return firstEl !== secondEl;
+    }
+
+    static removeElement (id) {
+      var elem = document.getElementById(id);
+      return elem.parentNode.removeChild(elem);
+    }
+  }
+
+  let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+  chrome = isChrome ? chrome : browser;
+
+  let boxContainer = null;
+  let isMouseOnBox = false;
+  let boxContentEL = null;
+  let elementMouseIsOver = null;
+  let elmntStyles = [];
+
+  let lastElementMouseIsOver = null;
+
+  function receiver (request) {
+    if (!boxContainer && request.message === 'start-detect') {
+      let Box = BoxStyles();
+
+      Box.createBox();
+
+      ['button', 'a', 'form'].forEach(tag => {
+        document.querySelectorAll(tag).forEach(el => {
+          el.onsubmit = (e) => {
+            e.preventDefault();
+            return false;
+          };
+
+          el.onclick = (e) => {
+            e.preventDefault();
+            return false;
+          };
+
+          if (el.id !== 'box-link') {
+            el.href = "javascript:void(0)";
+            el.click = "javascript:void(0)";
+          }
+        });
+      });
+
+      window.addEventListener('click', (event) => {
+
+        elementMouseIsOver = document.elementFromPoint(event.clientX, event.clientY);
+
+        if (boxContentEL && !isMouseOnBox) {
+          Box.setStyles(elementMouseIsOver);
+
+          if (!lastElementMouseIsOver) {
+            lastElementMouseIsOver = elementMouseIsOver;
+          }
+
+          if (Utils.compareTwoDomElements(lastElementMouseIsOver, elementMouseIsOver)) {
+            lastElementMouseIsOver.classList.remove('element-border');
+            lastElementMouseIsOver = elementMouseIsOver;
+            lastElementMouseIsOver.dataset.att = elementMouseIsOver.nodeName;
+            elementMouseIsOver.dataset.foo = elementMouseIsOver.nodeName;
+            elementMouseIsOver.classList.add('element-border');
+          }
+        }
+      }, false);
+    }
+  }
+
+  function BoxStyles () {
+    let isBoxReadyToMove = false;
+    let offset = [0, 0];
+
+    return {
+      createBox () {
+
+        boxContainer = new DOM().createElement('div', { id: 'box-styles' }).appendTo(document.body);
+
+        boxContentEL = new DOM().createElement('div', { id: 'box-styles-contents' }).get();
+
+        boxContainer.appendChilds([this.createHeader(), boxContentEL, this.createFooter()]);
+
+        document.addEventListener('mouseup', function () {
+          isMouseOnBox = false;
+          isBoxReadyToMove = false;
+        }, true);
+
+        document.addEventListener('mousemove', function (e) {
+          e.preventDefault();
+          if (isBoxReadyToMove) {
+            boxContainer.get().style.left = (e.clientX + offset[0]) + 'px';
+            boxContainer.get().style.top = (e.clientY + offset[1]) + 'px';
+          }
+        }, true);
+
+        document.addEventListener('click', (e) => {
+          isMouseOnBox = boxContainer && boxContainer.get().contains(e.target);
+        }, false);
+
+        boxContentEL.addEventListener("input", function (e) {
+          let isElTypeInput = (e.target.name === 'color' || e.target.name === 'background');
+          let nodeStyle = isElTypeInput ? e.target.name : e.target.dataset.node;
+          lastElementMouseIsOver.style[nodeStyle] = isElTypeInput ? e.target.value : e.target.textContent;
+        }, false);
+      },
+
+      setStyles: (element) => {
+        const getStyle = (name) => {
+          return window.getComputedStyle(element, null).getPropertyValue(name);
+        };
+
+        const createList = (items = []) => {
+          const list = document.createElement('ul');
+          list.classList.add('column-' + items.length);
+
+          items.forEach(item => {
+            const li = document.createElement('li');
+            const hSpan = document.createElement('span');
+            const vSpan = document.createElement('span');
+
+            li.classList.add('horizontal-center');
+
+            hSpan.textContent = item.name;
+            hSpan.classList.add('txt-muted');
+
+            vSpan.contentEditable = true;
+            vSpan.dataset.node = item.name;
+            vSpan.textContent = item.value;
+
+            li.appendChild(hSpan);
+            li.appendChild(vSpan);
+
+            if (item.name === 'color' || item.name === 'background') {
+              let val = Utils.rgbToHex(item.value);
+              vSpan.textContent = val;
+              li.innerHTML += `<input type="color" name="${item.name}" value="${val}">`;
+            }
+
+            list.appendChild(li);
+          });
+
+          return list;
+        };
+
+        boxContentEL.innerHTML = null;
+
+        let nwh = [
+          { name: 'node', value: element.nodeName },
+          { name: 'width', value: getStyle('width') },
+          { name: 'height', value: getStyle('height') }
+        ];
+
+        let sws = [
+          { name: 'size', value: getStyle('font-size') },
+          { name: 'weight', value: getStyle('font-weight') },
+          { name: 'style', value: getStyle('font-style') }
+        ];
+
+        let cb = [
+          { name: 'color', value: getStyle('color') },
+          { name: 'background', value: getStyle('background') }
+        ];
+
+        boxContentEL.appendChild(createList([{ name: 'Font family', value: getStyle("font-family") }]));
+        boxContentEL.appendChild(createList(nwh));
+        boxContentEL.appendChild(createList(cb));
+        boxContentEL.appendChild(createList(sws));
+        boxContentEL.appendChild(createList([
+          { name: 'padding', value: getStyle("padding") },
+          { name: 'margin', value: getStyle("margin") }
+        ]));
+        boxContentEL.appendChild(createList([{ name: 'Box shadow', value: getStyle("box-shadow") }]));
+
+        elmntStyles = [];
+        elmntStyles = [...nwh, ...sws, ...cb];
+      },
+
+      createHeader () {
+        let header = document.createElement('header');
+        let btnClose = document.createElement('div');
+        let btnCopy = new DOM().createElement('div', {
+          textContent: 'copy',
+          className: 'but',
+          onclick: (e) => {
+            let context = e.target;
+            let res = elmntStyles.reduce((a, c) => {
+              a[c.name] = c.value;
+              return a;
+            }, {});
+     
+            let dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = JSON.stringify(res);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            context.textContent = 'copied';
+            setTimeout(() => {
+              context.textContent = 'copy';
+            }, 2000);
+          }
+        });
+        let title = document.createElement('h3');
+
+        btnClose.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" viewBox="0 0 24 24" stroke="#ddd">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>`;
+
+        title.innerHTML = '<img src="https://i.ibb.co/VHZjhDT/icon32.png" alt="" /> Style Detector';
+
+        header.appendChild(title);
+        header.appendChild(btnCopy.get());
+        header.appendChild(btnClose);
+
+        header.addEventListener('mousedown', function (e) {
+          isMouseOnBox = true;
+          isBoxReadyToMove = true;
+          offset = [
+            boxContainer.get().offsetLeft - e.clientX,
+            boxContainer.get().offsetTop - e.clientY
+          ];
+        }, true);
+
+        btnClose.addEventListener('click', () => {
+          Utils.removeElement('box-styles');
+          boxContainer = null;
+          boxContentEL = null;
+        }, false);
+
+        return header;
+      },
+
+      createFooter () {
+        return new DOM().createElement('footer', {}).createChilds([
+          {
+            nodeType: 'a',
+            attributes: {
+              href: 'https://github.com/Chromo-lib/detector',
+              textContent: 'Made with coffee by Haikel Fazzani',
+              id: 'box-link'
+            }
+          }
+        ]).appendChilds().get();
+      },
+    }
+  }
+
+  chrome.runtime.onMessage.addListener(receiver);
+
+})));

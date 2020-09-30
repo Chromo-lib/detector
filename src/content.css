@@ -49,7 +49,7 @@
 }
 
 #box-styles input[type="color"] {
-  width: 100% !important;
+  width: 90% !important;
   height: 35px !important;
   margin-top: 5px;
 }
@@ -60,6 +60,7 @@
   margin: 0 !important;
   padding: 0 !important;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px !important;
@@ -73,10 +74,6 @@
 #box-styles .txt-muted {
   color: #b9b9b9 !important;
   text-transform: capitalize;
-}
-
-#box-styles .colu-2>* {
-  width: 48% !important;
 }
 
 #box-styles h3 {
@@ -131,12 +128,16 @@
   border-radius: 4px;
 }
 
+.horizontal-center {display:flex; flex-direction: column; }
 .vertical-center {display:flex; justify-content: center; align-items: center;}
+
+.column-2>*{flex: 1 1 48%;}
+.column-3>*{flex: 1 1 33.33%;}
+.column-1>*{flex: 1 1 100%;}
 
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
-  width: 32px;
 }

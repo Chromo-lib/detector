@@ -8,7 +8,7 @@ export default {
     file: 'public/content.js',
     format: 'umd',
     plugins: [
-      terser()
+      //terser()
     ]
   }
 };

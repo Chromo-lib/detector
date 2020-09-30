@@ -8,6 +8,7 @@ let boxContainer = null;
 let isMouseOnBox = false;
 let boxContentEL = null;
 let elementMouseIsOver = null;
+let elmntStyles = [];
 
 let lastElementMouseIsOver = null;
 
@@ -39,10 +40,6 @@ function receiver (request) {
     window.addEventListener('click', (event) => {
 
       elementMouseIsOver = document.elementFromPoint(event.clientX, event.clientY);
-      elementMouseIsOver.onclick = (e) => {
-        e.preventDefault();
-        return false;
-      };
 
       if (boxContentEL && !isMouseOnBox) {
         Box.setStyles(elementMouseIsOver);
@@ -54,6 +51,7 @@ function receiver (request) {
         if (Utils.compareTwoDomElements(lastElementMouseIsOver, elementMouseIsOver)) {
           lastElementMouseIsOver.classList.remove('element-border');
           lastElementMouseIsOver = elementMouseIsOver;
+          lastElementMouseIsOver.dataset.att = elementMouseIsOver.nodeName;
           elementMouseIsOver.dataset.foo = elementMouseIsOver.nodeName;
           elementMouseIsOver.classList.add('element-border');
         }
@@ -99,77 +97,103 @@ function BoxStyles () {
       }, false);
     },
 
-    setStyles (element) {
+    setStyles: (element) => {
       const getStyle = (name) => {
         return window.getComputedStyle(element, null).getPropertyValue(name);
       }
 
-      boxContentEL.innerHTML = `<ul>
-        <li>
-          <span class="txt-muted">family</span><br>
-          <span contenteditable="true" data-node="fontFamily">${getStyle("font-family")}</span>
-        </li>
-      </ul>
-    
-      <ul>
-        <li>
-          <span class="txt-muted">node</span><br>
-          <span class="truncate">${element.nodeName}</span>
-        </li>
-    
-        <li>
-          <span class="txt-muted">width</span><br>
-          <span contenteditable="true" data-node="width">${getStyle("width")}</span>
-        </li>
-    
-        <li>
-          <span class="txt-muted">height</span><br>
-          <span contenteditable="true" data-node="height">${getStyle("height")}</span>
-        </li>
-      </ul>
-    
-      <ul class="colu-2">
-        <li>
-          <span class="txt-muted">color</span><br>
-          <span contenteditable="true" data-node="color">${Utils.rgbToHex(getStyle("color"))}</span><br>
-          <input type="color" name="color" value="${Utils.rgbToHex(getStyle("color"))}">
-        </li>
-    
-        <li>
-          <span class="txt-muted">background</span><br>
-          <span contenteditable="true" data-node="backgroundColor">${Utils.rgbToHex(getStyle("background-color"))}</span><br>
-          <input type="color" name="background" value="${Utils.rgbToHex(getStyle("background-color"))}">
-        </li>
-      </ul>
-    
-      <ul>
-        <li>
-          <span class="txt-muted">size</span><br>
-          <span contenteditable="true" data-node="fontSize">${getStyle("font-size")}</span>
-        </li>
-    
-        <li>
-          <span class="txt-muted">weight</span><br>
-          <span contenteditable="true" data-node="fontWeight">${getStyle("font-weight")}</span>
-        </li>
-    
-        <li>
-          <span class="txt-muted">style</span><br>
-          <span contenteditable="true" data-node="fontStyle">${getStyle("font-style")}</span>
-        </li>
-      </ul>
-      
-      <ul>
-        <li>
-          <span class="txt-muted">box shadow</span><br>
-          <span contenteditable="true" data-node="boxShadow">${getStyle("box-shadow")}</span>
-        </li>
-      </ul>`;
+      const createList = (items = []) => {
+        const list = document.createElement('ul');
+        list.classList.add('column-' + items.length);
+
+        items.forEach(item => {
+          const li = document.createElement('li');
+          const hSpan = document.createElement('span');
+          const vSpan = document.createElement('span');
+
+          li.classList.add('horizontal-center');
+
+          hSpan.textContent = item.name;
+          hSpan.classList.add('txt-muted');
+
+          vSpan.contentEditable = true;
+          vSpan.dataset.node = item.name;
+          vSpan.textContent = item.value;
+
+          li.appendChild(hSpan);
+          li.appendChild(vSpan);
+
+          if (item.name === 'color' || item.name === 'background') {
+            let val = Utils.rgbToHex(item.value);
+            vSpan.textContent = val;
+            li.innerHTML += `<input type="color" name="${item.name}" value="${val}">`
+          }
+
+          list.appendChild(li);
+        });
+
+        return list;
+      }
+
+      boxContentEL.innerHTML = null;
+
+      let nwh = [
+        { name: 'node', value: element.nodeName },
+        { name: 'width', value: getStyle('width') },
+        { name: 'height', value: getStyle('height') }
+      ];
+
+      let sws = [
+        { name: 'size', value: getStyle('font-size') },
+        { name: 'weight', value: getStyle('font-weight') },
+        { name: 'style', value: getStyle('font-style') }
+      ];
+
+      let cb = [
+        { name: 'color', value: getStyle('color') },
+        { name: 'background', value: getStyle('background') }
+      ];
+
+      boxContentEL.appendChild(createList([{ name: 'Font family', value: getStyle("font-family") }]));
+      boxContentEL.appendChild(createList(nwh));
+      boxContentEL.appendChild(createList(cb));
+      boxContentEL.appendChild(createList(sws));
+      boxContentEL.appendChild(createList([
+        { name: 'padding', value: getStyle("padding") },
+        { name: 'margin', value: getStyle("margin") }
+      ]));
+      boxContentEL.appendChild(createList([{ name: 'Box shadow', value: getStyle("box-shadow") }]));
+
+      elmntStyles = [];
+      elmntStyles = [...nwh, ...sws, ...cb];
     },
 
     createHeader () {
       let header = document.createElement('header');
       let btnClose = document.createElement('div');
+      let btnCopy = new DOM().createElement('div', {
+        textContent: 'copy',
+        className: 'but',
+        onclick: (e) => {
+          let context = e.target;
+          let res = elmntStyles.reduce((a, c) => {
+            a[c.name] = c.value;
+            return a;
+          }, {});
+   
+          let dummy = document.createElement("textarea");
+          document.body.appendChild(dummy);
+          dummy.value = JSON.stringify(res);
+          dummy.select();
+          document.execCommand("copy");
+          document.body.removeChild(dummy);
+
+          context.textContent = 'copied';
+          setTimeout(() => {
+            context.textContent = 'copy';
+          }, 2000);
+        }
+      });
       let title = document.createElement('h3');
 
       btnClose.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" viewBox="0 0 24 24" stroke="#ddd">
@@ -179,6 +203,7 @@ function BoxStyles () {
       title.innerHTML = '<img src="https://i.ibb.co/VHZjhDT/icon32.png" alt="" /> Style Detector';
 
       header.appendChild(title);
+      header.appendChild(btnCopy.get());
       header.appendChild(btnClose);
 
       header.addEventListener('mousedown', function (e) {
@@ -210,7 +235,7 @@ function BoxStyles () {
           }
         }
       ]).appendChilds().get();
-    }
+    },
   }
 }
 
