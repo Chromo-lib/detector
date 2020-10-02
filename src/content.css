@@ -10,7 +10,7 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #2d2d2de0;
+  background-color: rgba(15, 15, 15, 0.95);
   color: #000000 !important;
   font-family: 'SyneRegular' !important;
   border: 1px solid #404040;
@@ -73,7 +73,7 @@
 }
 
 .box-styles button {  
-  background-color: inherit !important;
+  background-color: inherit;
   color: #dddddd !important;
   border: 1px solid rgb(58, 58, 58) !important;
   padding: 5px;  
@@ -96,14 +96,14 @@
   margin: 0;
 }
 
-.box-styles button:hover { background-color: #00000046 !important; }
-
 .box-styles svg path {
   stroke: #dddddd !important;
 }
 
-.box-styles svg:hover path {
-  stroke: #ffffff !important;
+.box-styles button:hover,.box-styles button:hover svg path { 
+  background-color: #ffffff18 !important; 
+  color: #fff !important;
+  stroke: #ffffff !important; 
 }
 
 .horizontal-center {
@@ -173,6 +173,8 @@
 
 .cursor-p {cursor: pointer;}
 
+.active-tab {background-color: #393939 !important;}
+
 .element-border {position: relative; box-shadow:inset 0px 0px 0px .5px #537bff; 
   outline:.5px solid #537bff;}
 
@@ -190,19 +192,23 @@ border-top:1px solid #537bff;
     border-left:1px solid #537bff;
 }
 /*********************************/
-.list-styles,.list-styles>* {box-sizing: border-box; font-family: 'Roboto Mono', sans-serif;}
+.list-styles,.list-styles>*,.list-anims,.list-anims>* {
+  box-sizing: border-box; font-family: 'Roboto Mono', sans-serif;
+}
 
 .accordian,
 .accordian h4,
 .accordian input,
-.accordian li {
+.accordian li,
+.list-anims li>*,
+.list-anims h4 {
   color: #ffffff;
   box-sizing: border-box;
   font-size: 12px !important;
   letter-spacing: .6px;
 }
 
-.accordian h4 {
+.accordian h4 , .list-anims h4{
   display:flex;
   justify-content:space-between;
   padding: 7px 10px;
@@ -216,24 +222,24 @@ border-top:1px solid #537bff;
   transition: all .25s;
 }
 
-.accordian h4:hover {
+.accordian h4:hover, .list-anims h4 {
   background-color: #00000046;
 }
 
-.accordian ul {
+.accordian ul,.list-anims ul {
   padding: 0 !important;
 }
 
-.accordian li {
+.accordian li,.list-anims li {
   padding: 5px 10px !important;
   border-bottom: 1px solid rgb(58, 58, 58) !important;
 }
 
-.accordian li>* {
+.accordian li>*,.list-anims li>* {
   width: 50%;
 }
 
-.accordian input[type="text"],.accordian input[type="color"] {
+.box-styles input[type="text"],.box-styles input[type="color"] {
   background-color:#3d3d3d !important;
   color: #fff !important;
   padding: 4px 5px !important;
@@ -243,19 +249,19 @@ border-top:1px solid #537bff;
   transition: width .25s, background .25s;
 }
 
-.accordian input[type="text"] {
+.box-styles input[type="text"] {
   border: 1px dotted 1px solid rgb(88, 88, 88) !important;
 }
 
-.accordian input[type="color"] {
+.box-styles input[type="color"] {
   border: 0 !important;
 }
 
-.accordian input:focus {
+.box-styles input:focus {
   width: 100%;
 }
 
-.circle-box {width: 15px; height: 15px;  border-radius: 50%;}
+.circle-box {width: 15px; height: 15px;  border-radius: 50%; border: 1px solid rgb(88, 88, 88);}
 /*********************************/
 .box-modal {
   width: 100%;
@@ -299,11 +305,11 @@ border-top:1px solid #537bff;
 }
 
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: rgba(15, 15, 15, 0.95);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #bdbdbd;
+  background: #3d3d3d;
 }
 
 ::-webkit-scrollbar-thumb:hover {

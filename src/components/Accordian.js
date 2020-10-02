@@ -54,7 +54,6 @@ export default function Accordian ({
       <ul className={"w-100 " + (active ? 'slideDown' : 'disp-none')}>
         {items.map(item => <li className="w-100 vertical-center" key={item.name}>
 
-
           <div className="disp-flex">
             <span className="cursor-p mr-5p" onClick={() => { onCopyVal(item) }} title="Copy Value">
               {copiedStyle && copiedStyle === item.name

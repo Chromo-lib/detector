@@ -3,18 +3,20 @@ import ListStyles from './components/ListStyles';
 import Draggable from './Draggable';
 import rgbToHex from './utils/rgbToHexa';
 import compareElements from './utils/compareElements';
-import copyToClipboard from './utils/copyToClipboard';
+import Modal from './components/Modal';
+import Animation from './components/Animation';
+
+const tabs = [
+  { id: 0, name: 'base' },
+  { id: 1, name: 'animation' }
+];
 
 export default function App () {
 
   const [boxStyleEL, setBoxStyleEL] = useState(null);
   const [selectedElemnt, setSelectedElemnt] = useState(null);
   const [selectedElementStyles, setSelectedElementStyles] = useState(null);
-
-  const [actionStatus, setActionsStatus] = useState({
-    isCopied: false,
-    isModalOpen: false
-  });
+  const [currTabId, setCurrTabId] = useState(0);
 
   useEffect(() => {
     let lastSelectedElemnt = null;
@@ -79,7 +81,6 @@ export default function App () {
           },
         ]);
 
-
         if (!lastSelectedElemnt) {
           lastSelectedElemnt = selectElemnt;
         }
@@ -100,53 +101,35 @@ export default function App () {
     }
   }, [boxStyleEL]);
 
-  const onCopy = () => {
-    if (selectedElementStyles) {
-      copyToClipboard(JSON.stringify(selectedElementStyles));
-      setActionsStatus({ ...actionStatus, isCopied: true });
-      setTimeout(() => {
-        setActionsStatus({ ...actionStatus, isCopied: false });
-      }, 2000);
-    }
-  }
-
-  const onToggleModal = () => {
-    setActionsStatus({ isCopied: false, isModalOpen: !actionStatus.isModalOpen });
+  const onTabSwitch = (tabId) => {
+    setCurrTabId(tabId);
   }
 
   return (<Draggable setBoxStyleEL={setBoxStyleEL}>
 
-    <ListStyles
-      data={selectedElementStyles}
-      selectedElemnt={selectedElemnt}
-      selectedElementStyles={selectedElementStyles}
-      setSelectedElementStyles={setSelectedElementStyles}
-    />
+    <div className="w-100 vertical-center column-2">
+      {tabs.map(tab => <button
+        onClick={() => { onTabSwitch(tab.id) }}
+        className={"vertical-center " + (currTabId === tab.id ? 'active-tab' : '')}
+        key={tab.id}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" width="14" className="mr-10p"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+        {tab.name}
+      </button>)}
+    </div>
 
-    {selectedElementStyles
-      && <>
-        <div className="w-100 vertical-center column-2">
-          <button onClick={onCopy} className="vertical-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" width="16" className="mr-10p">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-          </svg>{actionStatus.isCopied ? 'copied' : 'Copy'}</button>
-          <button onClick={onToggleModal} className="vertical-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" width="16" className="mr-10p">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>Show</button>
-        </div>
 
-        <div className={"box-modal vertical-center " + (actionStatus.isModalOpen ? '' : 'disp-none')}>
-          <textarea>{JSON.stringify(selectedElementStyles, null, ' ')}</textarea>
+    {currTabId === 0
+      ? <>
+        <ListStyles
+          data={selectedElementStyles}
+          selectedElemnt={selectedElemnt}
+          selectedElementStyles={selectedElementStyles}
+          setSelectedElementStyles={setSelectedElementStyles}
+        />
 
-          <div className="btns-modal">
-            <button className="mr-10 vertical-center" onClick={onCopy}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" width="16" className="mr-10p">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>{actionStatus.isCopied ? 'copied' : 'Copy'}</button>
-            <button onClick={onToggleModal} className="vertical-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" width="16" className="mr-10p">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>close</button>
-          </div>
-        </div>
-      </>}
+        {selectedElementStyles && <Modal selectedElementStyles={selectedElementStyles} />}
+      </>
+      : <Animation selectedElemnt={selectedElemnt} />}
 
     <footer>
       <p className="w-100 m-0p txt-center">Created by <a href="https://github.com/haikelfazzani">Haikel Fazzani</a></p>
