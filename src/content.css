@@ -1,12 +1,12 @@
 .box-styles>* {
   box-sizing: border-box !important;
   scrollbar-width: thin;
-  scrollbar-color: #323234 #5c5c5c;
+  scrollbar-color: #393939 #5c5c5c;
 }
 
 .box-styles {
   width: 300px;
-  max-height: 85%;    
+  max-height: 550px;    
   position: fixed;
   top: 20px;
   right: 20px;
@@ -16,11 +16,10 @@
   border: 1px solid #404040;
   box-shadow: rgb(0, 0, 0, 0.5) 0px 0px 40px 1px !important;
   z-index: 9999;
-  overflow: auto;
-    overflow-x: hidden !important;
+  overflow: hidden;
   pointer-events: initial !important;
   scrollbar-width: thin;
-  scrollbar-color: #2d2d2d #5c5c5c;  
+  scrollbar-color: #393939 #5c5c5c;  
 }
 
 .box-styles,
@@ -76,7 +75,7 @@
   background-color: inherit;
   color: #dddddd !important;
   border: 1px solid rgb(58, 58, 58) !important;
-  padding: 5px;  
+  padding: 7px 5px;  
   text-transform: uppercase;
   letter-spacing: .6px;
   font-size: 11px !important;
@@ -143,6 +142,9 @@
   text-align: center;
 }
 
+.bg-blue {background-color: #3F51B5 !important;}
+.bg-blue:hover {background-color: #3f51b511 !important;}
+
 .w-100 {
   width: 100% !important;
 }
@@ -175,6 +177,15 @@
 
 .active-tab {background-color: #393939 !important;}
 
+.box-styles a {color: #ffffff !important;}
+
+.pause-anim{
+  -webkit-animation-play-state:paused !important;
+  -moz-animation-play-state:paused !important;
+  -o-animation-play-state:paused !important; 
+  animation-play-state:paused !important;
+}
+
 .element-border {position: relative; box-shadow:inset 0px 0px 0px .5px #537bff; 
   outline:.5px solid #537bff;}
 
@@ -192,23 +203,28 @@ border-top:1px solid #537bff;
     border-left:1px solid #537bff;
 }
 /*********************************/
-.list-styles,.list-styles>*,.list-anims,.list-anims>* {
+.list-styles {
+  max-height: 420px;
+  overflow: auto;
+  overflow-x: hidden !important;
+  scrollbar-width: thin;
+}
+
+.list-styles,.list-styles>* {
   box-sizing: border-box; font-family: 'Roboto Mono', sans-serif;
 }
 
 .accordian,
 .accordian h4,
 .accordian input,
-.accordian li,
-.list-anims li>*,
-.list-anims h4 {
+.accordian li {
   color: #ffffff;
   box-sizing: border-box;
   font-size: 12px !important;
   letter-spacing: .6px;
 }
 
-.accordian h4 , .list-anims h4{
+.accordian h4 {
   display:flex;
   justify-content:space-between;
   padding: 7px 10px;
@@ -222,24 +238,24 @@ border-top:1px solid #537bff;
   transition: all .25s;
 }
 
-.accordian h4:hover, .list-anims h4 {
+.accordian h4:hover {
   background-color: #00000046;
 }
 
-.accordian ul,.list-anims ul {
+.accordian ul {
   padding: 0 !important;
 }
 
-.accordian li,.list-anims li {
+.accordian li {
   padding: 5px 10px !important;
   border-bottom: 1px solid rgb(58, 58, 58) !important;
 }
 
-.accordian li>*,.list-anims li>* {
+.accordian li>* {
   width: 50%;
 }
 
-.box-styles input[type="text"],.box-styles input[type="color"] {
+.box-styles input {
   background-color:#3d3d3d !important;
   color: #fff !important;
   padding: 4px 5px !important;
@@ -249,12 +265,16 @@ border-top:1px solid #537bff;
   transition: width .25s, background .25s;
 }
 
-.box-styles input[type="text"] {
+.box-styles input {
   border: 1px dotted 1px solid rgb(88, 88, 88) !important;
 }
 
 .box-styles input[type="color"] {
   border: 0 !important;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1
 }
 
 .box-styles input:focus {
@@ -301,7 +321,7 @@ border-top:1px solid #537bff;
 
 /*******************************/
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 5px !important;
 }
 
 ::-webkit-scrollbar-track {

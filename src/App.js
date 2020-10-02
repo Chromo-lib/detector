@@ -4,7 +4,7 @@ import Draggable from './Draggable';
 import rgbToHex from './utils/rgbToHexa';
 import compareElements from './utils/compareElements';
 import Modal from './components/Modal';
-import Animation from './components/Animation';
+import ListAnimation from './components/ListAnimation';
 
 const tabs = [
   { id: 0, name: 'base' },
@@ -129,7 +129,7 @@ export default function App () {
 
         {selectedElementStyles && <Modal selectedElementStyles={selectedElementStyles} />}
       </>
-      : <Animation selectedElemnt={selectedElemnt} />}
+      : <ListAnimation selectedElemnt={selectedElemnt} />}
 
     <footer>
       <p className="w-100 m-0p txt-center">Created by <a href="https://github.com/haikelfazzani">Haikel Fazzani</a></p>
