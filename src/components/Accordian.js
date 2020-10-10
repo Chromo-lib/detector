@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DotsVerticalIcon from '../icons/DotsVerticalIcon';
 import ExpandIcon from '../icons/ExpandIcon';
 
-export default function Accordian ({ children, title }) {
+function Accordian ({ children, title }) {
 
   const [active, setActive] = useState(false);
 
@@ -19,3 +19,5 @@ export default function Accordian ({ children, title }) {
     </div>
   );
 }
+
+export default React.memo(Accordian);

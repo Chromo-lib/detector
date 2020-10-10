@@ -13,10 +13,10 @@ const trnsformProps = [
 ];
 
 const animationProps = [
-  { name: 'duration', value: 3000, unit: '(s)', title: 'time|initial|inherit' },
+  { name: 'duration', value: 3000, unit: '(s)', title: 'time in seconds (1000 = 1s)' },
   { name: 'easing', value: 'linear', unit: '(text)', title: 'linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n)|initial|inherit' },
-  { name: 'delay', value: 1000, unit: '(s)', title: 'time|initial|inherit' },
-  { name: 'iterations', value: 1, unit: '(number)', title: 'number|infinite|initial|inherit' },
+  { name: 'delay', value: 1000, unit: '(s)', title: 'time ins seconds (1000 = 1s)' },
+  { name: 'iterations', value: 1, unit: '(number)', title: 'number of iterations' },
   { name: 'direction', value: 'normal', unit: '(text)', title: 'normal|reverse|alternate|alternate-reverse|initial|inherit' },
   { name: 'fill', value: 'none', unit: '(text)', title: 'none|forwards|backwards|both|initial|inherit' },
 ];
@@ -118,7 +118,7 @@ export default function ListAnimation ({ selectedElemnt }) {
       </Accordian>
     </div>
 
-    <div className="w-100 vertical-center column-2">
+    <div className="vertical-center column-2 padd-5">
       {state.isPlayin && !state.isPaused
         && <button onClick={onPauseOrResume} className="vertical-center bg-blue"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />

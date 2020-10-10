@@ -29,7 +29,7 @@ export default function App () {
         setSelectedElemnt(selectElemnt);
 
         const gs = (name) => {
-          return window.getComputedStyle(selectElemnt, null).getPropertyValue(name);
+          if (selectElemnt && name) { return window.getComputedStyle(selectElemnt, null).getPropertyValue(name); }
         }
 
         setSelectedElementStyles([
@@ -107,7 +107,7 @@ export default function App () {
 
   return (<Draggable setBoxStyleEL={setBoxStyleEL}>
 
-    <div className="w-100 vertical-center column-2">
+    <div className="w-100 vertical-center column-2 padd-5 pb-0">
       {tabs.map(tab => <button
         onClick={() => { onTabSwitch(tab.id) }}
         className={"vertical-center " + (currTabId === tab.id ? 'active-tab' : '')}

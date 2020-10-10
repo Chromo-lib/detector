@@ -15,9 +15,6 @@
 ### Capture
 ![](capture2.png)
 
-### Todo 
-- [ ] Change style of the current selected element
-- [ ] Store last selected element style
 
 # License
 MIT

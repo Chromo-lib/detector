@@ -3,10 +3,7 @@ import copyToClipboard from '../utils/copyToClipboard';
 
 export default function Modal ({ selectedElementStyles }) {
 
-  const [state, setState] = useState({
-    isCopied: false,
-    isModalOpen: false
-  });
+  const [state, setState] = useState({ isCopied: false, isModalOpen: false });
 
   const onCopy = () => {
     if (selectedElementStyles) {
@@ -23,7 +20,7 @@ export default function Modal ({ selectedElementStyles }) {
   }
 
   return (<>
-    <div className="w-100 vertical-center column-2">
+    <div className="w-100 vertical-center column-2 padd-5">
       <button onClick={onCopy} className="vertical-center bg-blue"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" width="16" className="mr-10p">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
       </svg>{state.isCopied ? 'copied' : 'Copy'}</button>
