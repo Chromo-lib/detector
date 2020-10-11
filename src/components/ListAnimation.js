@@ -100,7 +100,7 @@ export default function ListAnimation ({ selectedElemnt }) {
     }
   }
 
-  return (<div className="w-100">
+  return (<div className="w-100 slideLeft">
 
     <div className="w-100 list-styles">
       <Accordian title="Transform props">
@@ -120,19 +120,19 @@ export default function ListAnimation ({ selectedElemnt }) {
 
     <div className="vertical-center column-2 padd-5">
       {state.isPlayin && !state.isPaused
-        && <button onClick={onPauseOrResume} className="vertical-center bg-blue"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        && <button onClick={onPauseOrResume} className="vertical-center bg-rose"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>Pause</button>}
 
       {state.isPaused && !state.isPlayin
-        && <button onClick={onPauseOrResume} className="vertical-center bg-blue"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        && <button onClick={onPauseOrResume} className="vertical-center bg-rose"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>Resume</button>}
 
       {!state.isPlayin && !state.isPaused
-        && <button onClick={onPlay} className="vertical-center bg-blue"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        && <button onClick={onPlay} className="vertical-center bg-rose"><svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>Play</button>}

@@ -19,8 +19,6 @@ export default function ListStyles ({ data, selectedElemnt, selectedElementStyle
     let name = e.target.name;
     let val = e.target.value;
 
-    console.log('key ', e.target);
-
     selectedElemnt.style.setProperty(name, val, "important");
 
     let n = selectedElementStyles.map(st => {
@@ -35,7 +33,7 @@ export default function ListStyles ({ data, selectedElemnt, selectedElementStyle
   }
 
   if (data && data.length > 0) {
-    return (<div className="w-100 list-styles">
+    return (<div className="w-100 list-styles slideLeft">
       {data.map((d, idx) => (
         <Accordian key={idx} title={d.title}>
           {d.items.map(item => <li className="w-100 vertical-center" key={item.name}>
