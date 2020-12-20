@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import removeElement from './utils/removeElement';
 
-export default function Draggable ({ children }) {
+export default function Draggable ({ children, setBoxStyleEL }) {
 
   const boxRef = useRef(null);
   const boxHeaderRef = useRef(null);
@@ -12,7 +12,7 @@ export default function Draggable ({ children }) {
     }
 
     const target = boxRef.current;
-
+    setBoxStyleEL(target);
     let offset = [0, 0];
     let isReadyToMove = false;
 
@@ -53,18 +53,17 @@ export default function Draggable ({ children }) {
   }, [boxRef]);
 
   const onCloseBox = () => {
-    removeElement('root-fabritor-styles');
+    removeElement('root-box-styles');
   }
 
-  return <div ref={boxRef} className="fabritor-styles">
-    <header ref={boxHeaderRef} className="w-100 vertical-align justify-between">
-      <span className="vertical-align">
+  return <div ref={boxRef} className="box-styles">
+    <header ref={boxHeaderRef} className="w-100 vertical-center">
+      <span className="disp-flex">
         <svg xmlns="http://www.w3.org/2000/svg" className="mr-10p" width="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-        </svg>Fabritor
-      </span>
+        </svg>Style detector</span>
 
-      <button type="button" onClick={onCloseBox} title="Close box" className="btn-close vertical-align">
+      <button type="button" onClick={onCloseBox} title="Close box" className="btn-close vertical-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="#fff">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
