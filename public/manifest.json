@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "detector",
-  "description": "Inspect and change styles (color, font, etc..) of any DOM element with one click..",
-  "version": "2.0.3",
+  "name": "fabeditor",
+  "description": "fabric editor.",
+  "version": "1.0.0",
   "icons": {
     "256": "icons/icon256.png",
     "128": "icons/icon128.png",
@@ -10,7 +10,7 @@
     "32": "icons/icon32.png"
   },
   "browser_action": {
-    "default_title": "detector",
+    "default_title": "fabeditor",
     "default_popup": "popup.html",
     "browser_style": true
   },
